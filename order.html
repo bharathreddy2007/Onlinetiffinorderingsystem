@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Order Tiffin</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    color:#333;
+    background: linear-gradient(270deg,#ff9a9e,#fad0c4,#fbc2eb,#a6c1ee);
+    background-size:800% 800%;
+    animation:bgAnimation 12s ease infinite;
+}
+
+@keyframes bgAnimation{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.container{
+    width:420px;
+    margin:50px auto;
+    background:rgba(255,255,255,0.9);
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 0 15px gray;
+}
+
+h1{
+    text-align:center;
+    color:#ff6600;
+}
+
+label{
+    font-weight:bold;
+}
+
+input[type=text],
+input[type=tel],
+input[type=number],
+select,
+textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+input[type=submit], button{
+    width:100%;
+    padding:12px;
+    background:#ff6600;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+input[type=submit]:hover, button:hover{
+    background:#ff3300;
+}
+
+.total{
+    font-size:20px;
+    font-weight:bold;
+    color:#008000;
+    text-align:center;
+}
+
+a{
+    display:block;
+    text-align:center;
+    margin-top:20px;
+    text-decoration:none;
+    background:#333;
+    color:white;
+    padding:10px;
+    border-radius:6px;
+}
+
+</style>
+
+<script>
+// Billing calculation
+function calculateBill(){
+    let meal = document.getElementById("meal").value;
+    let qty = document.getElementById("qty").value;
+
+    let price = 0;
+
+    if(meal == "Idli") price = 3;
+    else if(meal == "Dosa") price = 5;
+    else if(meal == "Poori") price = 4;
+    else if(meal == "Veg Thali") price = 7;
+
+    let total = price * qty;
+    document.getElementById("totalBill").innerHTML = "Total Bill: $" + total;
+}
+
+// Optional: alert confirmation before submitting
+function confirmOrder(event){
+    event.preventDefault(); // stop default submit
+    alert("Your order has been placed successfully!");
+    // Redirect to successful.html
+    window.location.href = "ordersuccessful.html";
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Order Your Tiffin</h1>
+
+<!-- Add action attribute to form and use onsubmit for confirmation -->
+<form onsubmit="confirmOrder(event)">
+
+<label>Name:</label>
+<input type="text" name="name" required>
+
+<label>Phone Number:</label>
+<input type="tel" name="phone" required>
+
+<label>Select Meal:</label>
+<select id="meal">
+<option>Idli</option>
+<option>Dosa</option>
+<option>Poori</option>
+<option>Veg Thali</option>
+</select>
+
+<label>Quantity:</label>
+<input type="number" id="qty" min="1" value="1">
+
+<button type="button" onclick="calculateBill()">Calculate Bill</button>
+
+<p class="total" id="totalBill">Total Bill: $0</p>
+
+<label>Delivery Address:</label>
+<textarea rows="4" required></textarea>
+
+<label>Payment Method</label><br>
+<input type="radio" name="pay" required> Cash<br>
+<input type="radio" name="pay"> Card<br>
+<input type="radio" name="pay"> Online<br><br>
+
+<input type="submit" value="Place Order">
+
+</form>
+
+<a href="index2.html">Back to Home</a>
+
+</div>
+
+</body>
+</html>
